@@ -322,78 +322,6 @@ DESCRIPTION: This is the jsPsych version of the stop-signal task
 
 
 
-  // get participant's age and add it to the datafile
-
-  // the prompt is declared in the configuration/text_variables.js file
-
-  var age = {
-
-    type: 'survey-text',
-
-    questions: [{
-
-      prompt: age_instructions,
-
-      required: true
-
-    }, ],
-
-    button_label: label_next_button,
-    on_finish: function(data) {
-
-      var responses = JSON.parse(data.responses);
-
-      var code = responses.Q0;
-
-      jsPsych.data.addProperties({
-
-        age: code
-
-      });
-
-    }
-
-  };
-
-
-
-  // get participant's gender and add it to the datafile
-
-  // the prompt and options are declared in the configuration/text_variables.js file
-
-  var gender = {
-
-    type: 'survey-multi-choice',
-
-    questions: [{
-
-      prompt: gender_instructions,
-
-      options: gender_options,
-
-      required: true
-
-    }, ],
-
-    button_label: label_next_button,
-    on_finish: function(data) {
-
-      var responses = JSON.parse(data.responses);
-
-      var code = responses.Q0;
-
-      jsPsych.data.addProperties({
-
-        gender: code
-
-      });
-
-    }
-
-  };
-
-
-
   // instruction trial
 
   // the instructions are declared in the configuration/text_variables.js file
@@ -811,7 +739,7 @@ DESCRIPTION: This is the jsPsych version of the stop-signal task
       // the next piece of codes orders the columns of the data file
       var d = selected_data.values() // get the data values
       // make an array that specifies the order of the object properties
-      var arr = ['participantID','age','gender','block_i','trial_i','stim','signal','SSD','response','rt','correct','focus','Fullscreen',
+      var arr = ['participantID','block_i','trial_i','stim','signal','SSD','response','rt','correct','focus','Fullscreen',
       'time_elapsed','browser_name','browser_version','os_name','os_version','tablet','mobile','screen_resolution','window_resolution'];
       new_arr = [] // we will fill this array with the ordered data
       function myFunction(item) { // this is function is called in the arr.forEach call below
@@ -855,11 +783,11 @@ DESCRIPTION: This is the jsPsych version of the stop-signal task
 
     if (fullscreen){
 
-      var start_timeline = [welcome, participant_id, age, gender, fullscr, instructions]
+      var start_timeline = [welcome, participant_id, fullscr, instructions]
 
     } else {
 
-      var start_timeline = [welcome, participant_id, age, gender, instructions]
+      var start_timeline = [welcome, participant_id, instructions]
 
     }
 
@@ -879,11 +807,11 @@ DESCRIPTION: This is the jsPsych version of the stop-signal task
 
       if (fullscreen) {
 
-        var start_timeline = [welcome, age, gender, fullscr, instructions]
+        var start_timeline = [welcome, fullscr, instructions]
 
       } else {
 
-        var start_timeline = [welcome, age, gender, instructions]
+        var start_timeline = [welcome, instructions]
 
       }
 
@@ -1057,14 +985,14 @@ DESCRIPTION: This is the jsPsych version of the stop-signal task
 
         if (data.trial_index == id_index){ // write header
 
-          data_row = "participantID,age,gender,block_i,trial_i,stim,signal,SSD,response,rt,correct," +
+          data_row = "participantID,block_i,trial_i,stim,signal,SSD,response,rt,correct," +
                         "focus,Fullscreen,time_elapsed,browser_name,browser_version,os_name,os_version," +
                         "tablet,mobile,screen_resolution,window_resolution\n"
           appendData('SST_data_'+ subjID +'.csv',data_row)
 
         } else if (data.trial_type == 'custom-stop-signal-plugin'){ // append data each stimulus
 
-          data_row = data.participantID + ',' + data.age + ',' + data.gender + ',' + data.block_i + ',' + data.trial_i + ',' +
+          data_row = data.participantID + ',' + data.block_i + ',' + data.trial_i + ',' +
                         data.stim + ',' + data.signal + ',' + data.SSD + ',' + data.response + ',' + data.rt + ',' + data.correct + ',' +
                         data.focus + ',' + data.Fullscreen + ',' + data.time_elapsed + ',' + data.browser_name + ',' +
                         data.browser_version + ',' + data.os_name + ',' + data.os_version + ',' + data.tablet + ',' + data.mobile + ',' +
