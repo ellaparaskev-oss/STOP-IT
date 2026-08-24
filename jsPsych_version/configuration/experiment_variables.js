@@ -51,7 +51,7 @@ var NexpBL = 4;
 
 // ----- CUSTOMISE THE TIME INTERVALS (in milliseconds)-----
 
-var ITI = 500;    // fixed blank intertrial interval
+var ITI = 2000;    // fixed blank intertrial interval
 var FIX = 250;    // fixed fixation presentation
 var MAXRT = 1250; // fixed maximum reaction time
 var SSD = 200;    // start value for the SSD tracking procedure; will be updated throughout the experiment
