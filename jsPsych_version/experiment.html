@@ -649,18 +649,10 @@ DESCRIPTION: This is the jsPsych version of the stop-signal task
 
       }
 
-      // the final text to present. Can also show correct and incorrect proportions if requested.
-
+      // Do not show performance feedback between experimental blocks.
+      // Participants only see the break/countdown message.
       return [
-
-        no_signal_header +
-
-        sprintf(avg_rt_msg,avg_nsRT) +
-        sprintf(prop_miss_msg,prop_ns_Missed) +
-        stop_signal_header +
-        sprintf(prop_corr_msg,prop_ss_Correct) +
         next_block_text
-
       ]
 
     },
