@@ -12,7 +12,7 @@ var page1 = [
 // Do not forget to adjust the number of blocks
 page2 = [
   '<p> We will start with a short practice block in which you will receive immediate feedback. You will no longer receive immediate feedback in the experimental phase. </p>'+
-  '<p> However, at the end of each experimental block, there will be a 15 second break. During this break, we will show you some information about your mean performance in the previous block.</p>' +
+  '<p> However, at the end of each experimental block, there will be a 15 second break.</p>' +
   '<p> The experiment consists of 1 practice block and 4 experimental blocks</p>'
 ];
 
