@@ -689,12 +689,20 @@ DESCRIPTION: This is the jsPsych version of the stop-signal task
     }, duration || 300);
   }
 
-  // Beep between the practice block and the experimental blocks
+  // Beep between the practice block and the experimental blocks.
+  // Record the elapsed experiment time when the beep is triggered.
   var practice_end_beep = {
     type: 'call-function',
     func: function() {
       if (block_ind == 1) {
         playBeep(2000, 800);
+      }
+    },
+    on_finish: function(data) {
+      if (block_ind == 1) {
+        jsPsych.data.addProperties({
+          practice_end_beep_time_elapsed: data.time_elapsed
+        });
       }
     }
   };
@@ -732,7 +740,7 @@ DESCRIPTION: This is the jsPsych version of the stop-signal task
       var d = selected_data.values() // get the data values
       // make an array that specifies the order of the object properties
       var arr = ['participantID','block_i','trial_i','stim','signal','SSD','response','rt','correct','focus','Fullscreen',
-      'time_elapsed','browser_name','browser_version','os_name','os_version','tablet','mobile','screen_resolution','window_resolution'];
+      'time_elapsed','practice_end_beep_time_elapsed','browser_name','browser_version','os_name','os_version','tablet','mobile','screen_resolution','window_resolution'];
       new_arr = [] // we will fill this array with the ordered data
       function myFunction(item) { // this is function is called in the arr.forEach call below
         new_obj[item] = obj[item]
@@ -978,7 +986,7 @@ DESCRIPTION: This is the jsPsych version of the stop-signal task
         if (data.trial_index == id_index){ // write header
 
           data_row = "participantID,block_i,trial_i,stim,signal,SSD,response,rt,correct," +
-                        "focus,Fullscreen,time_elapsed,browser_name,browser_version,os_name,os_version," +
+                        "focus,Fullscreen,time_elapsed,practice_end_beep_time_elapsed,browser_name,browser_version,os_name,os_version," +
                         "tablet,mobile,screen_resolution,window_resolution\n"
           appendData('SST_data_'+ subjID +'.csv',data_row)
 
@@ -986,7 +994,7 @@ DESCRIPTION: This is the jsPsych version of the stop-signal task
 
           data_row = data.participantID + ',' + data.block_i + ',' + data.trial_i + ',' +
                         data.stim + ',' + data.signal + ',' + data.SSD + ',' + data.response + ',' + data.rt + ',' + data.correct + ',' +
-                        data.focus + ',' + data.Fullscreen + ',' + data.time_elapsed + ',' + data.browser_name + ',' +
+                        data.focus + ',' + data.Fullscreen + ',' + data.time_elapsed + ',' + data.practice_end_beep_time_elapsed + ',' + data.browser_name + ',' +
                         data.browser_version + ',' + data.os_name + ',' + data.os_version + ',' + data.tablet + ',' + data.mobile + ',' +
                         data.screen_resolution + ',' + data.window_resolution + '\n'
           appendData('SST_data_'+ subjID +'.csv',data_row)
