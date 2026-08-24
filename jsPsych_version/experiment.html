@@ -73,6 +73,8 @@ DESCRIPTION: This is the jsPsych version of the stop-signal task
 
   var block_ind = 0; // block indexing variables: block 0 is considered to be the practice block
 
+  var practice_end_beep_time = null;
+
   var focus = 'focus'; // tracks if the current tab/window is the active tab/window, initially the current tab should be focused
   var fullscr_ON = 'no'; // tracks fullscreen activity, initially not activated
   var redirect_timeout = 1500; // set this so that data is saved before redirect!
@@ -694,6 +696,9 @@ DESCRIPTION: This is the jsPsych version of the stop-signal task
     type: 'call-function',
     func: function() {
       if (block_ind == 1) {
+
+        practice_end_beep_time = jsPsych.getTotalTime();
+           
         playBeep(2000, 800);
       }
     }
@@ -732,7 +737,7 @@ DESCRIPTION: This is the jsPsych version of the stop-signal task
       var d = selected_data.values() // get the data values
       // make an array that specifies the order of the object properties
       var arr = ['participantID','block_i','trial_i','stim','signal','SSD','response','rt','correct','focus','Fullscreen',
-      'time_elapsed','browser_name','browser_version','os_name','os_version','tablet','mobile','screen_resolution','window_resolution'];
+      'time_elapsed','practice_end_beep_time','browser_name','browser_version','os_name','os_version','tablet','mobile','screen_resolution','window_resolution'];
       new_arr = [] // we will fill this array with the ordered data
       function myFunction(item) { // this is function is called in the arr.forEach call below
         new_obj[item] = obj[item]
@@ -978,7 +983,7 @@ DESCRIPTION: This is the jsPsych version of the stop-signal task
         if (data.trial_index == id_index){ // write header
 
           data_row = "participantID,block_i,trial_i,stim,signal,SSD,response,rt,correct," +
-                        "focus,Fullscreen,time_elapsed,browser_name,browser_version,os_name,os_version," +
+                        "focus,Fullscreen,time_elapsed,practice_end_beep_time,browser_name,browser_version,os_name,os_version," +
                         "tablet,mobile,screen_resolution,window_resolution\n"
           appendData('SST_data_'+ subjID +'.csv',data_row)
 
